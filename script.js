@@ -8,6 +8,7 @@ let isWorkPhase = true;
 let isRunning = false;
 let timerInterval = null;
 let isPaused = false;
+let audioContext = null;
 
 // Elementos del DOM
 const setupPanel = document.getElementById('setupPanel');
@@ -26,9 +27,20 @@ const workTimeValue = document.getElementById('workTimeValue');
 const restTimeValue = document.getElementById('restTimeValue');
 const roundsValue = document.getElementById('roundsValue');
 
+// Función para inicializar AudioContext (requerido por Safari iOS)
+function initAudioContext() {
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
+}
+
 // Función para emitir sonido de alerta
 function playAlertSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    if (!audioContext) return;
+    
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
     
@@ -47,7 +59,8 @@ function playAlertSound() {
 
 // Función para emitir sonido de finalización
 function playEndSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    if (!audioContext) return;
+    
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
     
@@ -137,6 +150,9 @@ function startTimer() {
     currentTime = workTime;
     isRunning = true;
     isPaused = false;
+    
+    // Inicializar AudioContext (requerido por Safari iOS)
+    initAudioContext();
     
     setupPanel.style.display = 'none';
     timerPanel.style.display = 'block';
