@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporizador de Entrenamiento</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>⏱️ Temporizador de Entrenamiento</h1>
+        
+        <div class="setup-panel" id="setupPanel">
+            <div class="slider-group">
+                <label for="workTime">Segundos de trabajo: <span id="workTimeValue" class="value-display">20</span>s</label>
+                <input type="range" id="workTime" value="20" min="10" max="90" step="5">
+            </div>
+            
+            <div class="slider-group">
+                <label for="restTime">Segundos de descanso: <span id="restTimeValue" class="value-display">10</span>s</label>
+                <input type="range" id="restTime" value="10" min="10" max="90" step="5">
+            </div>
+            
+            <div class="slider-group">
+                <label for="rounds">Rondas totales: <span id="roundsValue" class="value-display">8</span></label>
+                <input type="range" id="rounds" value="8" min="4" max="30" step="1">
+            </div>
+            
+            <button id="startBtn" class="btn btn-primary">Iniciar</button>
+        </div>
+        
+        <div class="timer-panel" id="timerPanel" style="display: none;">
+            <div class="timer-display" id="timerDisplay">00:00</div>
+            <div class="phase-display" id="phaseDisplay">TRABAJO</div>
+            <div class="rounds-display">
+                Ronda: <span id="currentRound">1</span> / <span id="totalRounds">8</span>
+            </div>
+            
+            <div class="timer-controls">
+                <button id="pauseBtn" class="btn btn-warning">Pausar</button>
+                <button id="resetBtn" class="btn btn-danger">Reiniciar</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
